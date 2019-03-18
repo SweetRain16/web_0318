@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script
+        src="http://code.jquery.com/jquery-3.3.1.js"
+        integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+        crossorigin="anonymous"></script>
+    <title>Title</title>
+</head>
+<body>
+    <section>
+        <h1>숫자를 입력하세요.</h1>
+        <div>
+            <input type="number" id="num1">
+            <input type="number" id="num2">
+            <button onclick="send('a')">+</button>
+            <button onclick="send('s')">-</button>
+            <button onclick="send('m')">*</button>
+            <button onclick="send('d')">/</button>
+            <div id="display-response"></div>
+        </div>
+        <script>
+            function send(sign) {
+                let num1 = $("#num1").val();
+                let num2 = $("#num2").val();
+
+                const display = $("#display-response");
+                $.get(`/calculate?sign=${sign}&num1=${num1}&num2=${num2}`)
+                    .done(res => display.html(`결과: ${res}`))
+                    .fail(err => display.html("에러 발생"));
+            }
+        </script>
+    </section>
+</body>
+</html>
